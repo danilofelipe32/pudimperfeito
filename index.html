@@ -139,20 +139,20 @@
     </nav>
 
     <!-- Hero Section -->
-    <!-- MUDANÇA: Altura calculada (calc(100vh - altura do menu)) para ocupar exatamente o espaço restante -->
-    <!-- MUDANÇA: object-contain garante que o vídeo apareça INTEIRO dentro desse espaço -->
-    <header class="relative w-full bg-gray-900 overflow-hidden z-0 mt-16 md:mt-20 h-[calc(100vh-4rem)] md:h-[calc(100vh-5rem)] flex items-center justify-center">
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-contain">
+    <!-- Removida altura fixa/calculada. O container agora se ajusta à altura do vídeo -->
+    <header class="relative w-full bg-gray-900 overflow-hidden z-0 mt-16 md:mt-20">
+        <!-- w-full h-auto: O vídeo ocupa 100% da largura e a altura é proporcional (sem cortes) -->
+        <video autoplay muted loop playsinline class="w-full h-auto block align-middle">
             <source src="https://i.imgur.com/Bybz7aH.mp4" type="video/mp4">
             Seu navegador não suporta vídeos.
         </video>
         
-        <!-- Overlay leve para destacar o botão caso o vídeo seja claro -->
+        <!-- Overlay leve -->
         <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
 
         <!-- Conteúdo Centralizado (Botão) -->
-        <!-- Posicionado no rodapé do container do vídeo -->
-        <div class="absolute inset-x-0 bottom-8 md:bottom-12 flex justify-center z-10 px-4 fade-in-section">
+        <!-- Posicionado absolutamente sobre o vídeo -->
+        <div class="absolute inset-0 flex items-end justify-center pb-6 md:pb-16 z-10 px-4 fade-in-section">
             <div class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
                 <a href="#leite" class="bg-white/90 backdrop-blur-sm text-gray-900 px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-lg hover:bg-white transition shadow-xl transform hover:-translate-y-1 text-center w-3/4 mx-auto sm:w-auto">
                     Ver Sabores
