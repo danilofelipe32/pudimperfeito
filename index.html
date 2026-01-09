@@ -2,7 +2,7 @@
 <html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Pudim Perfeito | A Doçura que Abraça</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -59,20 +59,19 @@
             z-index: 30;
             pointer-events: none;
             transform: translateY(99%); /* Encaixe perfeito */
-            /* Sombra muito mais suave e difusa para realismo sutil */
             filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.08)); 
         }
         
+        /* Altura responsiva para a calda não ocupar muito espaço no mobile */
         .drip-divider svg {
             position: relative;
             display: block;
-            width: calc(100% + 2px); /* Garante cobertura total */
-            height: 80px; /* Altura reduzida para ser menos invasivo */
+            width: calc(100% + 2px);
         }
 
         /* Brilho da calda muito mais sutil */
         .drip-shine {
-            opacity: 0.15; /* Reduzi a opacidade para não brigar com o conteúdo */
+            opacity: 0.15;
             mix-blend-mode: overlay;
         }
 
@@ -91,24 +90,29 @@
         .modal.hidden .modal-content {
             transform: scale(0.95) translateY(10px);
         }
+        
+        /* Mobile Optimizations */
+        input, textarea, select {
+            font-size: 16px !important; /* Previne zoom no iOS */
+        }
     </style>
 </head>
 <body class="antialiased text-gray-800">
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm h-16 md:h-20 flex items-center" id="navbar">
+        <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
                 <div class="flex-shrink-0 flex items-center gap-2">
-                    <i data-lucide="chef-hat" class="text-amber-500 w-8 h-8"></i>
-                    <span class="font-serif text-2xl font-bold text-gray-900 tracking-wide">Pudim<span class="text-amber-500">Perfeito</span></span>
+                    <i data-lucide="chef-hat" class="text-amber-500 w-6 h-6 md:w-8 md:h-8"></i>
+                    <span class="font-serif text-xl md:text-2xl font-bold text-gray-900 tracking-wide">Pudim<span class="text-amber-500">Perfeito</span></span>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
                     <a href="#leite" class="text-gray-600 hover:text-amber-500 font-medium transition">Clássico</a>
                     <a href="#morango" class="text-gray-600 hover:text-red-500 font-medium transition">Morango</a>
                     <a href="#chocolate" class="text-gray-600 hover:text-amber-900 font-medium transition">Chocolate</a>
                     
-                    <!-- Cart Button -->
+                    <!-- Cart Button Desktop -->
                     <button onclick="openCart()" class="relative p-2 text-gray-600 hover:text-amber-600 transition">
                         <i data-lucide="shopping-cart" class="w-6 h-6"></i>
                         <span id="cart-badge" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-600 rounded-full opacity-0 transition-opacity">0</span>
@@ -118,32 +122,32 @@
                 <div class="md:hidden flex items-center gap-4">
                     <button onclick="openCart()" class="relative p-2 text-gray-600">
                         <i data-lucide="shopping-cart" class="w-6 h-6"></i>
-                        <span id="mobile-cart-badge" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-600 rounded-full opacity-0 transition-opacity">0</span>
+                        <span id="mobile-cart-badge" class="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-[10px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-600 rounded-full opacity-0 transition-opacity">0</span>
                     </button>
-                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <i data-lucide="menu" class="w-8 h-8"></i>
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 focus:outline-none p-1">
+                        <i data-lucide="menu" class="w-7 h-7"></i>
                     </button>
                 </div>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 absolute w-full shadow-lg">
-            <a href="#leite" class="block py-2 text-gray-700 font-medium">Clássico</a>
-            <a href="#morango" class="block py-2 text-gray-700 font-medium">Morango</a>
-            <a href="#chocolate" class="block py-2 text-gray-700 font-medium">Chocolate</a>
+        <div id="mobile-menu" class="hidden absolute top-16 left-0 w-full bg-white border-t p-4 shadow-lg flex-col gap-2 md:hidden">
+            <a href="#leite" onclick="toggleMenu()" class="block py-3 px-4 rounded-lg hover:bg-gray-50 text-gray-700 font-medium">Clássico</a>
+            <a href="#morango" onclick="toggleMenu()" class="block py-3 px-4 rounded-lg hover:bg-gray-50 text-gray-700 font-medium">Morango</a>
+            <a href="#chocolate" onclick="toggleMenu()" class="block py-3 px-4 rounded-lg hover:bg-gray-50 text-gray-700 font-medium">Chocolate</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative w-full bg-gray-900 overflow-hidden z-0">
+    <header class="relative w-full bg-gray-900 overflow-hidden z-0 mt-16 md:mt-0">
         <video autoplay muted loop playsinline class="w-full h-auto block">
             <source src="https://i.imgur.com/Bybz7aH.mp4" type="video/mp4">
             Seu navegador não suporta vídeos.
         </video>
         <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
-        <div class="absolute inset-0 flex items-end justify-center pb-8 md:pb-24 z-10 px-4 fade-in-section">
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#leite" class="bg-white/90 backdrop-blur-sm text-gray-900 px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-base md:text-lg hover:bg-white transition shadow-xl transform hover:-translate-y-1">
+        <div class="absolute inset-0 flex items-end justify-center pb-6 md:pb-24 z-10 px-4 fade-in-section">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
+                <a href="#leite" class="bg-white/90 backdrop-blur-sm text-gray-900 px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-lg hover:bg-white transition shadow-xl transform hover:-translate-y-1 text-center w-3/4 mx-auto sm:w-auto">
                     Ver Sabores
                 </a>
             </div>
@@ -151,28 +155,29 @@
     </header>
 
     <!-- 1. Pudim de Leite (Cinza Claro) -->
-    <section id="leite" class="py-24 bg-pudim-milk relative z-20">
+    <!-- Ajuste no padding vertical para mobile (py-16) e desktop (md:py-24) -->
+    <section id="leite" class="py-16 md:py-24 bg-pudim-milk relative z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
-                <div class="w-full md:w-1/2 fade-in-section cursor-pointer group" onclick="openDetails('leite')">
-                    <div class="relative">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
+                <div class="w-full md:w-1/2 fade-in-section cursor-pointer group order-1" onclick="openDetails('leite')">
+                    <div class="relative px-4 md:px-0">
                         <div class="absolute -inset-4 bg-amber-200/50 rounded-full blur-2xl opacity-70 group-hover:bg-amber-300/60 transition duration-500"></div>
                         <img src="https://imgur.com/zISIQD9.jpg" alt="Pudim de Leite Condensado" class="relative w-full rounded-3xl shadow-2xl floating-img border-4 border-white object-cover aspect-square">
-                        <div class="absolute bottom-6 right-6 bg-white/90 backdrop-blur px-6 py-3 rounded-2xl shadow-lg group-hover:scale-105 transition">
+                        <div class="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-white/90 backdrop-blur px-4 py-2 md:px-6 md:py-3 rounded-2xl shadow-lg group-hover:scale-105 transition">
                             <div class="flex items-center gap-2">
-                                <i data-lucide="plus" class="text-amber-400 w-5 h-5"></i>
-                                <span class="font-bold text-gray-800">Ver Detalhes</span>
+                                <i data-lucide="plus" class="text-amber-400 w-4 h-4 md:w-5 md:h-5"></i>
+                                <span class="font-bold text-xs md:text-base text-gray-800">Detalhes</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-1/2 fade-in-section">
-                    <span class="text-amber-600 font-bold tracking-wider uppercase text-sm mb-2 block">Tradicional</span>
-                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">Pudim de Leite</h2>
-                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                <div class="w-full md:w-1/2 fade-in-section order-2 text-center md:text-left">
+                    <span class="text-amber-600 font-bold tracking-wider uppercase text-xs md:text-sm mb-2 block">Tradicional</span>
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6">Pudim de Leite</h2>
+                    <p class="text-base md:text-lg text-gray-600 mb-6 leading-relaxed">
                         A receita clássica elevada à perfeição. Sem furinhos, extremamente liso e banhado em uma calda de caramelo dourada.
                     </p>
-                    <button onclick="openDetails('leite')" class="group flex items-center gap-2 text-amber-600 font-bold text-lg hover:text-amber-700 transition">
+                    <button onclick="openDetails('leite')" class="group flex items-center justify-center md:justify-start gap-2 text-amber-600 font-bold text-lg hover:text-amber-700 transition w-full md:w-auto">
                         Peça o seu <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                     </button>
                 </div>
@@ -181,7 +186,8 @@
         
         <!-- SUTIL: Cinza escorrendo sobre o Vermelho -->
         <div class="drip-divider">
-            <svg viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Altura responsiva: h-12 no mobile, h-20 no desktop -->
+            <svg class="h-12 md:h-20" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                 <!-- Camada de brilho (Shine) -->
                 <path fill="#ffffff" class="drip-shine" d="M0,64L60,80C120,96,240,128,360,133.3C480,139,600,117,720,112C840,107,960,117,1080,122.7C1200,128,1320,128,1380,128L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
                 <!-- Camada Principal -->
@@ -191,22 +197,23 @@
     </section>
 
     <!-- 2. Pudim de Morango (Vermelho/Rosa) -->
-    <section id="morango" class="pt-32 pb-24 bg-gradient-to-br from-rose-500 to-red-600 text-white relative z-10">
+    <!-- Ajuste padding top para compensar a calda menor no mobile -->
+    <section id="morango" class="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-rose-500 to-red-600 text-white relative z-10">
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex flex-col-reverse md:flex-row items-center gap-12 lg:gap-20">
-                <div class="w-full md:w-1/2 fade-in-section">
-                    <span class="text-rose-200 font-bold tracking-wider uppercase text-sm mb-2 block">Edição Frutada</span>
-                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">Pudim de Morango</h2>
-                    <p class="text-lg text-rose-100 mb-6 leading-relaxed">
+            <div class="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
+                <div class="w-full md:w-1/2 fade-in-section text-center md:text-left">
+                    <span class="text-rose-200 font-bold tracking-wider uppercase text-xs md:text-sm mb-2 block">Edição Frutada</span>
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4 md:mb-6">Pudim de Morango</h2>
+                    <p class="text-base md:text-lg text-rose-100 mb-6 leading-relaxed">
                         Uma explosão de sabor. Feito com morangos frescos selecionados, este pudim traz a combinação perfeita entre a cremosidade e o azedinho.
                     </p>
-                    <button onclick="openDetails('morango')" class="bg-white text-rose-600 px-8 py-3 rounded-full font-bold hover:bg-rose-50 transition shadow-lg transform hover:-translate-y-1">
+                    <button onclick="openDetails('morango')" class="bg-white text-rose-600 px-8 py-3 rounded-full font-bold hover:bg-rose-50 transition shadow-lg transform hover:-translate-y-1 w-full md:w-auto">
                         Ver Detalhes
                     </button>
                 </div>
                 <div class="w-full md:w-1/2 fade-in-section cursor-pointer group" onclick="openDetails('morango')">
-                    <div class="relative">
+                    <div class="relative px-4 md:px-0">
                          <div class="absolute -inset-4 bg-white/20 rounded-full blur-2xl opacity-50 group-hover:bg-white/30 transition duration-500"></div>
                         <img src="https://imgur.com/cyzC80R.jpg" alt="Pudim de Morango" class="relative w-full rounded-3xl shadow-2xl floating-img border-4 border-white/20 object-cover aspect-square" style="animation-delay: 1s;">
                     </div>
@@ -216,7 +223,7 @@
 
         <!-- SUTIL: Vermelho escorrendo sobre o Marrom -->
         <div class="drip-divider">
-            <svg viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="h-12 md:h-20" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                  <!-- Camada de brilho (Shine) -->
                  <path fill="#ffffff" class="drip-shine" d="M0,64L60,80C120,96,240,128,360,133.3C480,139,600,117,720,112C840,107,960,117,1080,122.7C1200,128,1320,128,1380,128L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
                  <!-- Camada Principal (Cor do Morango) -->
@@ -226,22 +233,22 @@
     </section>
 
     <!-- 3. Pudim de Chocolate (Marrom) -->
-    <section id="chocolate" class="pt-32 pb-24 bg-pudim-choco text-white overflow-hidden relative z-0">
+    <section id="chocolate" class="pt-24 md:pt-32 pb-16 md:pb-24 bg-pudim-choco text-white overflow-hidden relative z-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
-                <div class="w-full md:w-1/2 fade-in-section cursor-pointer group" onclick="openDetails('chocolate')">
-                    <div class="relative">
+            <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
+                <div class="w-full md:w-1/2 fade-in-section cursor-pointer group order-1" onclick="openDetails('chocolate')">
+                    <div class="relative px-4 md:px-0">
                         <div class="absolute -inset-4 bg-amber-900/50 rounded-full blur-2xl group-hover:bg-amber-800/60 transition"></div>
                         <img src="https://imgur.com/7CdyGyd.jpg" alt="Pudim de Chocolate" class="relative w-full rounded-3xl shadow-2xl floating-img border-4 border-amber-900/50 object-cover aspect-square">
                     </div>
                 </div>
-                <div class="w-full md:w-1/2 fade-in-section">
-                    <span class="text-amber-400 font-bold tracking-wider uppercase text-sm mb-2 block">Intenso</span>
-                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">Pudim de Chocolate</h2>
-                    <p class="text-lg text-gray-300 mb-6 leading-relaxed">
+                <div class="w-full md:w-1/2 fade-in-section order-2 text-center md:text-left">
+                    <span class="text-amber-400 font-bold tracking-wider uppercase text-xs md:text-sm mb-2 block">Intenso</span>
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4 md:mb-6">Pudim de Chocolate</h2>
+                    <p class="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
                         Utilizamos cacau 70% para criar uma sobremesa densa, rica e sofisticada. Não é apenas doce, é uma experiência.
                     </p>
-                    <button onclick="openDetails('chocolate')" class="border-2 border-amber-400 text-amber-400 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-gray-900 transition">
+                    <button onclick="openDetails('chocolate')" class="border-2 border-amber-400 text-amber-400 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-gray-900 transition w-full md:w-auto">
                         Ver Detalhes
                     </button>
                 </div>
@@ -250,51 +257,51 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-950 text-gray-400 py-12 relative z-20">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+    <footer class="bg-gray-950 text-gray-400 py-8 md:py-12 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-center md:text-left">
             <div class="flex items-center gap-2">
                 <i data-lucide="chef-hat" class="text-amber-500 w-6 h-6"></i>
                 <span class="font-serif text-xl font-bold text-white">PudimPerfeito</span>
             </div>
             <div class="text-sm">
-                &copy; 2024 Pudim Perfeito. WhatsApp: (84) 99978-0963
+                &copy; 2024 Pudim Perfeito.<br class="md:hidden"> WhatsApp: (84) 99978-0963
             </div>
         </div>
     </footer>
 
     <!-- PRODUCT DETAIL MODAL -->
-    <div id="product-modal" class="modal hidden fixed inset-0 z-[60] flex items-center justify-center p-4">
+    <div id="product-modal" class="modal hidden fixed inset-0 z-[60] flex items-center justify-center p-2 md:p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal('product-modal')"></div>
-        <div class="modal-content bg-white rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden relative flex flex-col md:flex-row max-h-[90vh]">
-            <button onclick="closeModal('product-modal')" class="absolute top-4 right-4 z-20 bg-black/10 hover:bg-black/20 p-2 rounded-full transition">
-                <i data-lucide="x" class="w-6 h-6 text-gray-800"></i>
+        <div class="modal-content bg-white rounded-2xl md:rounded-3xl shadow-2xl w-full max-w-4xl overflow-hidden relative flex flex-col md:flex-row h-auto max-h-[90vh]">
+            <button onclick="closeModal('product-modal')" class="absolute top-3 right-3 z-20 bg-black/20 hover:bg-black/30 p-2 rounded-full transition text-white backdrop-blur-sm">
+                <i data-lucide="x" class="w-5 h-5 md:w-6 md:h-6"></i>
             </button>
             
             <!-- Modal Image -->
-            <div class="w-full md:w-1/2 bg-gray-100 relative h-64 md:h-auto">
+            <div class="w-full md:w-1/2 bg-gray-100 relative h-48 md:h-auto flex-shrink-0">
                 <img id="modal-img" src="" alt="Produto" class="w-full h-full object-cover">
             </div>
             
             <!-- Modal Content -->
-            <div class="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center bg-white overflow-y-auto">
+            <div class="w-full md:w-1/2 p-6 md:p-12 flex flex-col bg-white overflow-y-auto">
                 <span id="modal-category" class="text-amber-600 font-bold uppercase text-xs tracking-wider mb-2"></span>
-                <h3 id="modal-title" class="font-serif text-3xl md:text-4xl font-bold text-gray-900 mb-4"></h3>
-                <p id="modal-desc" class="text-gray-600 mb-6 leading-relaxed"></p>
+                <h3 id="modal-title" class="font-serif text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4"></h3>
+                <p id="modal-desc" class="text-sm md:text-base text-gray-600 mb-6 leading-relaxed"></p>
                 
-                <div class="flex items-center gap-4 mb-8">
-                    <span id="modal-price" class="text-2xl font-bold text-gray-900"></span>
-                    <div class="flex items-center border border-gray-300 rounded-full px-2">
+                <div class="flex items-center justify-between md:justify-start gap-4 mb-6 md:mb-8 mt-auto md:mt-0">
+                    <span id="modal-price" class="text-xl md:text-2xl font-bold text-gray-900"></span>
+                    <div class="flex items-center border border-gray-300 rounded-full px-2 py-1">
                         <button onclick="adjustQty(-1)" class="p-2 text-gray-500 hover:text-amber-600"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                        <span id="modal-qty" class="px-4 font-bold text-gray-900">1</span>
+                        <span id="modal-qty" class="px-3 font-bold text-gray-900">1</span>
                         <button onclick="adjustQty(1)" class="p-2 text-gray-500 hover:text-amber-600"><i data-lucide="plus" class="w-4 h-4"></i></button>
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-3">
-                    <button onclick="addToCartCurrent()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-xl shadow-lg transform transition active:scale-95 flex justify-center gap-2">
+                    <button onclick="addToCartCurrent()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 md:py-4 rounded-xl shadow-lg transform transition active:scale-95 flex justify-center gap-2 items-center text-base">
                         <i data-lucide="shopping-bag" class="w-5 h-5"></i> Adicionar ao Carrinho
                     </button>
-                    <button onclick="closeModal('product-modal')" class="w-full text-gray-500 hover:text-gray-900 py-2 font-medium">
+                    <button onclick="closeModal('product-modal')" class="w-full text-gray-500 hover:text-gray-900 py-2 font-medium text-sm">
                         Continuar Comprando
                     </button>
                 </div>
@@ -308,18 +315,18 @@
         <div class="modal-content w-full max-w-md bg-white h-full shadow-2xl relative flex flex-col transform translate-x-0 transition-transform duration-300">
             
             <!-- Cart Header -->
-            <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+            <div class="p-4 md:p-6 border-b flex justify-between items-center bg-gray-50">
                 <div class="flex items-center gap-2">
                     <i data-lucide="shopping-cart" class="text-amber-500 w-5 h-5"></i>
-                    <h2 class="font-serif text-xl font-bold text-gray-900">Seu Pedido</h2>
+                    <h2 class="font-serif text-lg md:text-xl font-bold text-gray-900">Seu Pedido</h2>
                 </div>
-                <button onclick="closeCart()" class="text-gray-400 hover:text-gray-900">
+                <button onclick="closeCart()" class="text-gray-400 hover:text-gray-900 p-2">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
             </div>
 
             <!-- Cart Items -->
-            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <div id="cart-items" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
                 <!-- Items injected via JS -->
                 <div class="text-center text-gray-500 mt-10">
                     <i data-lucide="shopping-basket" class="w-12 h-12 mx-auto mb-3 opacity-30"></i>
@@ -328,24 +335,24 @@
             </div>
 
             <!-- Cart Footer -->
-            <div class="p-6 border-t bg-gray-50">
+            <div class="p-4 md:p-6 border-t bg-gray-50">
                 <!-- Inputs de Nome e Endereço -->
-                <div class="mb-6 space-y-3">
+                <div class="mb-4 md:mb-6 space-y-3">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Seu Nome *</label>
-                        <input type="text" id="customer-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none" placeholder="Ex: Maria Silva">
+                        <input type="text" id="customer-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none text-base" placeholder="Ex: Maria Silva">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Endereço de Entrega *</label>
-                        <textarea id="customer-address" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none resize-none" placeholder="Rua, Número, Bairro, Complemento..."></textarea>
+                        <textarea id="customer-address" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none resize-none text-base" placeholder="Rua, Número, Bairro, Complemento..."></textarea>
                     </div>
                 </div>
 
                 <div class="flex justify-between items-center mb-4 text-lg border-t border-gray-200 pt-4">
                     <span class="font-bold text-gray-600">Total</span>
-                    <span id="cart-total" class="font-bold text-2xl text-amber-600">R$ 0,00</span>
+                    <span id="cart-total" class="font-bold text-xl md:text-2xl text-amber-600">R$ 0,00</span>
                 </div>
-                <button onclick="checkoutWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 rounded-xl shadow-lg transform transition active:scale-95 flex justify-center items-center gap-2">
+                <button onclick="checkoutWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 md:py-4 rounded-xl shadow-lg transform transition active:scale-95 flex justify-center items-center gap-2 text-base">
                     <i data-lucide="message-circle" class="w-5 h-5"></i> Enviar Pedido no WhatsApp
                 </button>
             </div>
@@ -388,6 +395,13 @@
         let cart = [];
         let currentModalProduct = null;
         let currentQty = 1;
+
+        // --- Toggle Mobile Menu ---
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
 
         // --- Details Modal Logic ---
         function openDetails(productId) {
@@ -466,7 +480,7 @@
             } else {
                 listContainer.innerHTML = cart.map(item => `
                     <div class="flex gap-4 items-center bg-gray-50 p-3 rounded-lg">
-                        <img src="${item.img}" class="w-16 h-16 rounded-md object-cover">
+                        <img src="${item.img}" class="w-16 h-16 rounded-md object-cover flex-shrink-0">
                         <div class="flex-1">
                             <h4 class="font-bold text-sm text-gray-900">${item.title}</h4>
                             <div class="flex justify-between items-center mt-1">
@@ -560,10 +574,8 @@
 
         document.querySelectorAll('.fade-in-section').forEach(section => observer.observe(section));
 
-        // Mobile Menu
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
+        // Mobile Menu Button Logic
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMenu);
     </script>
 </body>
 </html>
