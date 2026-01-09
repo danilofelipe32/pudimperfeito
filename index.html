@@ -59,7 +59,7 @@
             z-index: 30;
             pointer-events: none;
             transform: translateY(99%); /* Encaixe perfeito */
-            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.08)); 
+            /* TOTALMENTE FLAT: Nenhuma sombra ou filtro aplicado */
         }
         
         /* Altura responsiva para a calda não ocupar muito espaço no mobile */
@@ -67,12 +67,6 @@
             position: relative;
             display: block;
             width: calc(100% + 2px);
-        }
-
-        /* Brilho da calda muito mais sutil */
-        .drip-shine {
-            opacity: 0.15;
-            mix-blend-mode: overlay;
         }
 
         /* Modal Transitions */
@@ -100,7 +94,6 @@
 <body class="antialiased text-gray-800">
 
     <!-- Navbar -->
-    <!-- ADICIONADO: top-0 e left-0 para fixar a barra EXATAMENTE no topo, sem espaços acima -->
     <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm h-16 md:h-20 flex items-center" id="navbar">
         <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
@@ -140,19 +133,14 @@
     </nav>
 
     <!-- Hero Section -->
-    <!-- Removida altura fixa/calculada. O container agora se ajusta à altura do vídeo -->
     <header class="relative w-full bg-gray-900 overflow-hidden z-0 mt-16 md:mt-20">
-        <!-- w-full h-auto: O vídeo ocupa 100% da largura e a altura é proporcional (sem cortes) -->
         <video autoplay muted loop playsinline class="w-full h-auto block align-middle">
             <source src="https://i.imgur.com/Bybz7aH.mp4" type="video/mp4">
             Seu navegador não suporta vídeos.
         </video>
         
-        <!-- Overlay leve -->
         <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
 
-        <!-- Conteúdo Centralizado (Botão) -->
-        <!-- Posicionado absolutamente sobre o vídeo -->
         <div class="absolute inset-0 flex items-end justify-center pb-6 md:pb-16 z-10 px-4 fade-in-section">
             <div class="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto">
                 <a href="#leite" class="bg-white/90 backdrop-blur-sm text-gray-900 px-6 py-3 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-lg hover:bg-white transition shadow-xl transform hover:-translate-y-1 text-center w-3/4 mx-auto sm:w-auto">
@@ -163,7 +151,6 @@
     </header>
 
     <!-- 1. Pudim de Leite (Cinza Claro) -->
-    <!-- Ajuste no padding vertical para mobile (py-16) e desktop (md:py-24) -->
     <section id="leite" class="py-16 md:py-24 bg-pudim-milk relative z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
@@ -193,21 +180,18 @@
             </div>
         </div>
         
-        <!-- SUTIL: Cinza escorrendo sobre o Vermelho -->
+        <!-- CALDA CINZA (Sobre o Vermelho) -->
         <div class="drip-divider">
-            <!-- Altura responsiva: h-12 no mobile, h-20 no desktop -->
             <svg class="h-12 md:h-20" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Camada de brilho (Shine) -->
-                <path fill="#ffffff" class="drip-shine" d="M0,64L60,80C120,96,240,128,360,133.3C480,139,600,117,720,112C840,107,960,117,1080,122.7C1200,128,1320,128,1380,128L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
-                <!-- Camada Principal -->
+                <!-- Camada Principal (Sem brilho, sem sombra) -->
                 <path fill="#F3F4F6" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,144C1248,128,1344,96,1392,80L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
             </svg>
         </div>
     </section>
 
     <!-- 2. Pudim de Morango (Vermelho/Rosa) -->
-    <!-- Ajuste padding top para compensar a calda menor no mobile -->
-    <section id="morango" class="pt-24 md:pt-32 pb-16 md:pb-24 bg-gradient-to-br from-rose-500 to-red-600 text-white relative z-10">
+    <!-- ALTERADO: bg-red-600 (sólido) para casar perfeitamente com o SVG da calda abaixo (#dc2626) -->
+    <section id="morango" class="pt-24 md:pt-32 pb-16 md:pb-24 bg-red-600 text-white relative z-10">
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
@@ -217,13 +201,12 @@
                     <p class="text-base md:text-lg text-rose-100 mb-6 leading-relaxed">
                         Uma explosão de sabor. Feito com morangos frescos selecionados, este pudim traz a combinação perfeita entre a cremosidade e o azedinho da fruta.
                     </p>
-                    <!-- Botão removido conforme solicitado -->
                 </div>
                 <div class="w-full md:w-1/2 fade-in-section cursor-pointer group" onclick="openDetails('morango')">
                     <div class="relative px-4 md:px-0">
                          <div class="absolute -inset-4 bg-white/20 rounded-full blur-2xl opacity-50 group-hover:bg-white/30 transition duration-500"></div>
                         <img src="https://imgur.com/cyzC80R.jpg" alt="Pudim de Morango" class="relative w-full rounded-3xl shadow-2xl floating-img border-4 border-white/20 object-cover aspect-square" style="animation-delay: 1s;">
-                        <!-- Botão + Detalhes (Adicionado) -->
+                        <!-- Botão + Detalhes (Padrão) -->
                         <div class="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-white/90 backdrop-blur px-4 py-2 md:px-6 md:py-3 rounded-2xl shadow-lg group-hover:scale-105 transition">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="plus" class="text-amber-400 w-4 h-4 md:w-5 md:h-5"></i>
@@ -235,12 +218,10 @@
             </div>
         </div>
 
-        <!-- SUTIL: Vermelho escorrendo sobre o Marrom -->
+        <!-- CALDA VERMELHA (Sobre o Marrom) -->
         <div class="drip-divider">
             <svg class="h-12 md:h-20" viewBox="0 0 1440 320" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                 <!-- Camada de brilho (Shine) -->
-                 <path fill="#ffffff" class="drip-shine" d="M0,64L60,80C120,96,240,128,360,133.3C480,139,600,117,720,112C840,107,960,117,1080,122.7C1200,128,1320,128,1380,128L1440,128L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
-                 <!-- Camada Principal (Cor do Morango) -->
+                <!-- Camada Principal (Sem brilho, sem sombra) - Cor #dc2626 (Matches bg-red-600) -->
                 <path fill="#dc2626" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,144C1248,128,1344,96,1392,80L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
             </svg>
         </div>
@@ -254,7 +235,7 @@
                     <div class="relative px-4 md:px-0">
                         <div class="absolute -inset-4 bg-amber-900/50 rounded-full blur-2xl group-hover:bg-amber-800/60 transition"></div>
                         <img src="https://imgur.com/7CdyGyd.jpg" alt="Pudim de Chocolate" class="relative w-full rounded-3xl shadow-2xl floating-img border-4 border-amber-900/50 object-cover aspect-square">
-                        <!-- Botão + Detalhes (Adicionado) -->
+                        <!-- Botão + Detalhes (Padrão) -->
                         <div class="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-white/90 backdrop-blur px-4 py-2 md:px-6 md:py-3 rounded-2xl shadow-lg group-hover:scale-105 transition">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="plus" class="text-amber-400 w-4 h-4 md:w-5 md:h-5"></i>
@@ -269,7 +250,6 @@
                     <p class="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
                         Utilizamos cacau 70% para criar uma sobremesa densa, rica e sofisticada. Não é apenas doce, é uma experiência.
                     </p>
-                    <!-- Botão removido conforme solicitado -->
                 </div>
             </div>
         </div>
@@ -355,7 +335,7 @@
 
             <!-- Cart Footer -->
             <div class="p-4 md:p-6 border-t bg-gray-50">
-                <!-- Inputs de Nome e Endereço -->
+                <!-- Inputs de Nome, Endereço e Pagamento -->
                 <div class="mb-4 md:mb-6 space-y-3">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Seu Nome *</label>
@@ -364,6 +344,16 @@
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Endereço de Entrega *</label>
                         <textarea id="customer-address" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none resize-none text-base" placeholder="Rua, Número, Bairro, Complemento..."></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Forma de Pagamento *</label>
+                        <select id="payment-method" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:outline-none text-base bg-white">
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="PIX">PIX</option>
+                            <option value="Cartão de Crédito">Cartão de Crédito</option>
+                            <option value="Cartão de Débito">Cartão de Débito</option>
+                            <option value="Dinheiro">Dinheiro</option>
+                        </select>
                     </div>
                 </div>
 
@@ -538,9 +528,11 @@
             // Captura os dados dos inputs
             const nameInput = document.getElementById('customer-name');
             const addressInput = document.getElementById('customer-address');
+            const paymentInput = document.getElementById('payment-method');
             
             const name = nameInput.value.trim();
             const address = addressInput.value.trim();
+            const payment = paymentInput.value;
 
             // Validação simples
             if (!name) {
@@ -555,6 +547,12 @@
                 return;
             }
 
+            if (!payment) {
+                alert("Por favor, selecione a forma de pagamento.");
+                paymentInput.focus();
+                return;
+            }
+
             const phone = "5584999780963";
             
             // Construção da mensagem formatada
@@ -562,6 +560,7 @@
             message += "--------------------------------\n";
             message += `👤 *Cliente:* ${name}\n`;
             message += `📍 *Endereço:* ${address}\n`;
+            message += `💳 *Pagamento:* ${payment}\n`;
             message += "--------------------------------\n\n";
             message += "*ITENS DO PEDIDO:*\n";
             
