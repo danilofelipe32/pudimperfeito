@@ -100,7 +100,8 @@
 <body class="antialiased text-gray-800">
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm h-16 md:h-20 flex items-center" id="navbar">
+    <!-- ADICIONADO: top-0 e left-0 para fixar a barra EXATAMENTE no topo, sem espaços acima -->
+    <nav class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm h-16 md:h-20 flex items-center" id="navbar">
         <div class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center">
                 <div class="flex-shrink-0 flex items-center gap-2">
@@ -170,6 +171,7 @@
                     <div class="relative px-4 md:px-0">
                         <div class="absolute -inset-4 bg-amber-200/50 rounded-full blur-2xl opacity-70 group-hover:bg-amber-300/60 transition duration-500"></div>
                         <img src="https://imgur.com/zISIQD9.jpg" alt="Pudim de Leite Condensado" class="relative w-full rounded-3xl shadow-2xl floating-img border-4 border-white object-cover aspect-square">
+                        <!-- Botão + Detalhes (Padrão) -->
                         <div class="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-white/90 backdrop-blur px-4 py-2 md:px-6 md:py-3 rounded-2xl shadow-lg group-hover:scale-105 transition">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="plus" class="text-amber-400 w-4 h-4 md:w-5 md:h-5"></i>
@@ -213,16 +215,21 @@
                     <span class="text-rose-200 font-bold tracking-wider uppercase text-xs md:text-sm mb-2 block">Edição Frutada</span>
                     <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4 md:mb-6">Pudim de Morango</h2>
                     <p class="text-base md:text-lg text-rose-100 mb-6 leading-relaxed">
-                        Uma explosão de sabor. Feito com morangos frescos selecionados, este pudim traz a combinação perfeita entre a cremosidade e o azedinho.
+                        Uma explosão de sabor. Feito com morangos frescos selecionados, este pudim traz a combinação perfeita entre a cremosidade e o azedinho da fruta.
                     </p>
-                    <button onclick="openDetails('morango')" class="bg-white text-rose-600 px-8 py-3 rounded-full font-bold hover:bg-rose-50 transition shadow-lg transform hover:-translate-y-1 w-full md:w-auto">
-                        Ver Detalhes
-                    </button>
+                    <!-- Botão removido conforme solicitado -->
                 </div>
                 <div class="w-full md:w-1/2 fade-in-section cursor-pointer group" onclick="openDetails('morango')">
                     <div class="relative px-4 md:px-0">
                          <div class="absolute -inset-4 bg-white/20 rounded-full blur-2xl opacity-50 group-hover:bg-white/30 transition duration-500"></div>
                         <img src="https://imgur.com/cyzC80R.jpg" alt="Pudim de Morango" class="relative w-full rounded-3xl shadow-2xl floating-img border-4 border-white/20 object-cover aspect-square" style="animation-delay: 1s;">
+                        <!-- Botão + Detalhes (Adicionado) -->
+                        <div class="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-white/90 backdrop-blur px-4 py-2 md:px-6 md:py-3 rounded-2xl shadow-lg group-hover:scale-105 transition">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="plus" class="text-amber-400 w-4 h-4 md:w-5 md:h-5"></i>
+                                <span class="font-bold text-xs md:text-base text-gray-800">Detalhes</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -247,6 +254,13 @@
                     <div class="relative px-4 md:px-0">
                         <div class="absolute -inset-4 bg-amber-900/50 rounded-full blur-2xl group-hover:bg-amber-800/60 transition"></div>
                         <img src="https://imgur.com/7CdyGyd.jpg" alt="Pudim de Chocolate" class="relative w-full rounded-3xl shadow-2xl floating-img border-4 border-amber-900/50 object-cover aspect-square">
+                        <!-- Botão + Detalhes (Adicionado) -->
+                        <div class="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-white/90 backdrop-blur px-4 py-2 md:px-6 md:py-3 rounded-2xl shadow-lg group-hover:scale-105 transition">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="plus" class="text-amber-400 w-4 h-4 md:w-5 md:h-5"></i>
+                                <span class="font-bold text-xs md:text-base text-gray-800">Detalhes</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="w-full md:w-1/2 fade-in-section order-2 text-center md:text-left">
@@ -255,9 +269,7 @@
                     <p class="text-base md:text-lg text-gray-300 mb-6 leading-relaxed">
                         Utilizamos cacau 70% para criar uma sobremesa densa, rica e sofisticada. Não é apenas doce, é uma experiência.
                     </p>
-                    <button onclick="openDetails('chocolate')" class="border-2 border-amber-400 text-amber-400 px-8 py-3 rounded-full font-bold hover:bg-amber-400 hover:text-gray-900 transition w-full md:w-auto">
-                        Ver Detalhes
-                    </button>
+                    <!-- Botão removido conforme solicitado -->
                 </div>
             </div>
         </div>
